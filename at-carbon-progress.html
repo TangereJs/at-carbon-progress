@@ -1,5 +1,5 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../at-core-theme/at-core-theme.html">
+<link rel="import" href="../tangere/tangere.html">
+<link rel="import" href="../at-theme/at-theme.html">
 
 <dom-module id="at-carbon-progress">
 
@@ -9,20 +9,23 @@
         display: block;
         width: 100%;
       }
-      
+
       #wrapper {
         width: 100%;
       }
-      
+
       #bar {
         height: 4px;
         transition: width 0.3s ease-in-out;
         -webkit-transition: width 0.3s ease-in-out;
       }
+
+      #bar.progress-bar {
+        background-color: var(--at-action-color);
+      }
     </style>
-    <at-core-theme></at-core-theme>
     <div id="wrapper">
-      <div id="bar" class="ui progress-bar"></div>
+      <div id="bar" class="progress-bar"></div>
     </div>
   </template>
 </dom-module>
@@ -42,7 +45,7 @@
       }
     },
     observers: [
-        'update(value,max)'
+      'update(value,max)'
     ],
     update: function () {
 
