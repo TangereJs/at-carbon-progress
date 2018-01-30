@@ -1,0 +1,393 @@
+<!doctype html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <title>at-carbon-progress tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../at-carbon-progress.html">
+  <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html" />
+  </head>
+  <body>
+    <test-fixture id="initial">
+      <template>
+        <at-carbon-progress></at-carbon-progress>
+      </template>
+    </test-fixture>
+
+    <!-- 
+      max fixtures 
+    -->
+    <test-fixture id="maxIsUndefined">
+      <template>
+        <at-carbon-progress max="undefined"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIsNull">
+      <template>
+        <at-carbon-progress max="null"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIsTrue">
+      <template>
+        <at-carbon-progress max="true"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIsFalse">
+      <template>
+        <at-carbon-progress max="false"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIs-42">
+      <template>
+        <at-carbon-progress max="-42"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIs0">
+      <template>
+        <at-carbon-progress max="0"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIs42">
+      <template>
+        <at-carbon-progress max="42"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIsEmpty">
+      <template>
+        <at-carbon-progress max=""></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIsLorem_ipsum">
+      <template>
+        <at-carbon-progress max="lorem ipsum"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIs{}">
+      <template>
+        <at-carbon-progress max="{}"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIs[]">
+      <template>
+        <at-carbon-progress max="[]"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="maxIsFunction">
+      <template>
+        <at-carbon-progress max="function f() { return undefined; }"></at-carbon-progress>
+      </template>
+    </test-fixture>
+
+    <!-- 
+      value fixtures 
+    -->
+    <test-fixture id="valueIsUndefined">
+      <template>
+        <at-carbon-progress value="undefined"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIsNull">
+      <template>
+        <at-carbon-progress value="null"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIsTrue">
+      <template>
+        <at-carbon-progress value="true"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIsFalse">
+      <template>
+        <at-carbon-progress value="false"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIs-42">
+      <template>
+        <at-carbon-progress value="-42"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIs0">
+      <template>
+        <at-carbon-progress value="0"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIs42">
+      <template>
+        <at-carbon-progress value="42"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIsEmpty">
+      <template>
+        <at-carbon-progress value=""></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIsLorem_ipsum">
+      <template>
+        <at-carbon-progress value="lorem ipsum"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIs{}">
+      <template>
+        <at-carbon-progress value="{}"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIs[]">
+      <template>
+        <at-carbon-progress value="[]"></at-carbon-progress>
+      </template>
+    </test-fixture>
+    <test-fixture id="valueIsFunction">
+      <template>
+        <at-carbon-progress value="function f() { return undefined; }"></at-carbon-progress>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="propertyTests">
+      <template>
+        <at-carbon-progress></at-carbon-progress>
+      </template>
+    </test-fixture>
+    
+  <script>
+    suite('initial value tests', function() {
+      test('initial value', function() {
+        var elt = fixture('initial');
+
+        assert.equal(elt.max, 100);
+        assert.equal(elt.value, 0);
+      });
+    });
+    // 
+    // max attribute tests
+    // 
+    suite("max attribute tests", function() {
+      test('max is undefined', function() {
+        var elt = fixture('maxIsUndefined');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is null', function() {
+        var elt = fixture('maxIsNull');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is true', function() {
+        var elt = fixture('maxIsTrue');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is false', function() {
+        var elt = fixture('maxIsFalse');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is -42', function() {
+        var elt = fixture('maxIs-42');
+
+        assert.equal(elt.max, -42);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is 0', function() {
+        var elt = fixture('maxIs0');
+
+        assert.equal(elt.max, 0);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is 42', function() {
+        var elt = fixture('maxIs42');
+
+        assert.equal(elt.max, 42);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is empty', function() {
+        var elt = fixture('maxIsEmpty');
+
+        assert.equal(elt.max, 0);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is lorem ipsum', function() {
+        var elt = fixture('maxIsLorem_ipsum');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is {}', function() {
+        var elt = fixture('maxIs{}');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is []', function() {
+        var elt = fixture('maxIs[]');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+
+      test('max is function', function() {
+        var elt = fixture('maxIsFunction');
+
+        assert.isNaN(elt.max);
+        assert.equal(elt.value, 0);
+      });
+    });
+
+    // 
+    // value attribute tests
+    // 
+    suite("value attribute tests", function() {
+      test('value is undefined', function() {
+        var elt = fixture('valueIsUndefined');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+
+      test('value is null', function() {
+        var elt = fixture('valueIsNull');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+
+      test('value is true', function() {
+        var elt = fixture('valueIsTrue');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+
+      test('value is false', function() {
+        var elt = fixture('valueIsFalse');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+
+      test('value is -42', function() {
+        var elt = fixture('valueIs-42');
+
+        assert.equal(elt.max, 100);
+        assert.equal(elt.value, -42);
+      });
+
+      test('value is 0', function() {
+        var elt = fixture('valueIs0');
+
+        assert.equal(elt.max, 100);
+        assert.equal(elt.value, 0);
+      });
+
+      test('value is 42', function() {
+        var elt = fixture('valueIs42');
+
+        assert.equal(elt.max, 100);
+        assert.equal(elt.value, 42);
+      });
+
+      test('value is empty', function() {
+        var elt = fixture('valueIsEmpty');
+
+        assert.equal(elt.max, 100);
+        assert.equal(elt.value, 0);
+      });
+
+      test('value is lorem ipsum', function() {
+        var elt = fixture('valueIsLorem_ipsum');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+
+      test('value is {}', function() {
+        var elt = fixture('valueIs{}');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+
+      test('value is []', function() {
+        var elt = fixture('valueIs[]');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+
+      test('value is function', function() {
+        var elt = fixture('valueIsFunction');
+
+        assert.equal(elt.max, 100);
+        assert.isNaN(elt.value);
+      });
+    });
+
+    suite("tests where properties are set as in code", function() { 
+
+      test('max values', function() {
+        var elt = fixture('propertyTests');
+
+        var actValues = [ 
+          "undefined", "null", "true", "false", "-42", "0", "42", "", "lorem ipsum", "{}", "[]", "function f() { return undefined; }", 
+          undefined, null, true, false, -42, 0, 42, {}, []
+          ];
+
+        var expValues = [ 
+          "undefined", "null", "true", "false", "-42", "0", "42", "", "lorem ipsum", "{}", "[]", "function f() { return undefined; }",
+          undefined, null, true, false, -42, 0, 42, {}, []
+         ];
+
+        for (var i=0; i < actValues.length; i++) { 
+          var actValue = actValues[i];
+          var expValue = expValues[i];
+
+          elt.max = actValue;
+          
+          assert.deepEqual(elt.max, expValue);
+          assert.equal(elt.value, 0);
+        }
+      });
+
+      test('value values', function() {
+        var elt = fixture('propertyTests');
+
+        var actValues = [ 
+          "undefined", "null", "true", "false", "-42", "0", "42", "", "lorem ipsum", "{}", "[]", "function f() { return undefined; }", 
+          undefined, null, true, false, -42, 0, 42, {}, []
+          ];
+
+        var expValues = [ 
+          "undefined", "null", "true", "false", "-42", "0", "42", "", "lorem ipsum", "{}", "[]", "function f() { return undefined; }",
+          undefined, null, true, false, -42, 0, 42, {}, []
+         ];
+
+        for (var i=0; i < actValues.length; i++) { 
+          var actValue = actValues[i];
+          var expValue = expValues[i];
+
+          elt.value = actValue;
+          
+          assert.equal(elt.max, 100);
+          assert.deepEqual(elt.value, expValue);
+        }
+      });
+
+    });
+  </script>
+  </body>
+</html>

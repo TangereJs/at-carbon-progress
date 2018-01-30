@@ -1,0 +1,144 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>at-carbon-progress tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../at-carbon-progress.html">
+  <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html" />
+
+</head>
+<body>
+
+  <test-fixture id="propertyTest">
+    <template>
+      <at-carbon-progress></at-carbon-progress>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('uiinteraction tests', function() {
+
+    function eltWidth(elt) {
+        var widthPropVal = window.getComputedStyle(elt).getPropertyValue('width');
+        var widthProp = widthPropVal.replace('px', '');
+        var width = parseInt(widthProp);
+        return width;
+    }
+
+    function assertVisibility(elt, visibility) {
+        var bar = elt.$.bar;
+        var cmpStyle = window.getComputedStyle(bar);
+        var visibilityValue = cmpStyle.getPropertyValue('visibility');
+        assert.equal(visibilityValue, visibility);
+    }
+
+    function assertWidth(elt, width) {
+        var bar = elt.$.bar;
+        var cmpStyle = window.getComputedStyle(bar);
+        var widthValue = cmpStyle.getPropertyValue('width');
+        assert.equal(widthValue, width);
+    }    
+
+    test('assert value behavior', function(done) {
+        var elt = fixture('propertyTest');
+
+        assertVisibility(elt, "hidden");
+        assertWidth(elt, "0px");
+
+        var initWidth = eltWidth(elt.$.wrapper);
+
+        var expResult;
+        var valuesToTest = [ 25, 75, 90, 10, 99 ];
+        var currIndex = 0;
+        var boundTransitionEnd = undefined;
+
+        function handleTransitionEnd(event) {
+            elt.$.bar.removeEventListener('transitionend', boundTransitionEnd);
+            
+            var curWidth = eltWidth(elt.$.bar);
+            var expWidth = Math.round((this.widthPercent * initWidth)/100);
+
+            assert.equal(curWidth, expWidth);
+
+            if (currIndex > valuesToTest.length-1) {
+                done();
+                return;
+            }
+
+            var value = valuesToTest[currIndex];
+            currIndex++;
+            expResult = {
+                widthPercent: Math.round((value/elt.max)*100)
+            };
+
+            boundTransitionEnd = handleTransitionEnd.bind(expResult)
+            elt.$.bar.addEventListener('transitionend', boundTransitionEnd);
+            elt.value = value;
+        }
+
+        expResult = {
+            widthPercent: Math.round((50/elt.max)*100)
+        };
+
+        boundTransitionEnd = handleTransitionEnd.bind(expResult)
+        elt.$.bar.addEventListener('transitionend', boundTransitionEnd);
+
+        elt.value = 50;
+      });
+
+    test('assert max behavior', function(done) {
+        var elt = fixture('propertyTest');
+
+        assertVisibility(elt, "hidden");
+        assertWidth(elt, "0px");
+
+        elt.value = 50;
+
+        var initWidth = eltWidth(elt.$.wrapper);
+
+        var expResult;
+        var maxToTest = [ 75, 100, 150, 300, 350, 500 ];
+        var currIndex = 0;
+        var boundTransitionEnd = undefined;
+
+        function handleTransitionEnd(event) {
+            elt.$.bar.removeEventListener('transitionend', boundTransitionEnd);
+            
+            var curWidth = eltWidth(elt.$.bar);
+            var expWidth = Math.round((this.widthPercent * initWidth)/100);
+            assert.equal(curWidth, expWidth);
+
+            if (currIndex > maxToTest.length-1) {
+                done();
+                return;
+            }
+
+            var max = maxToTest[currIndex];
+            currIndex++;
+            expResult = {
+                widthPercent: Math.round((50/max)*100)
+            };
+
+            boundTransitionEnd = handleTransitionEnd.bind(expResult)
+            elt.$.bar.addEventListener('transitionend', boundTransitionEnd);
+            elt.max = max;
+        }
+
+        expResult = {
+            widthPercent: Math.round((50/50)*100)
+        };
+
+        boundTransitionEnd = handleTransitionEnd.bind(expResult)
+        elt.$.bar.addEventListener('transitionend', boundTransitionEnd);
+
+        elt.max = 50;
+      });
+    });
+  </script>
+</body>
+</html>
